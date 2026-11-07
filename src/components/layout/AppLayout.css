@@ -1,0 +1,52 @@
+.app-layout {
+  min-height: 100vh;
+  background: #f8fafc;
+}
+.app-layout__content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 24px;
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 32px;
+  background: #fff;
+  border-bottom: 1px solid #e2e8f0;
+}
+.app-header__brand {
+  color: #0f172a;
+  font-size: 20px;
+  font-weight: 700;
+}
+.app-header__user {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.app-header__user div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.app-header__user span {
+  color: #334155;
+  font-size: 14px;
+}
+.app-header__user small {
+  color: #64748b;
+  font-size: 12px;
+}
+.app-header__user button {
+  padding: 8px 14px;
+  color: #475569;
+  background: #fff;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.app-header__user button:hover {
+  background: #f1f5f9;
+}/*# sourceMappingURL=AppLayout.css.map */

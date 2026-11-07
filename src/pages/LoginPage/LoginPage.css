@@ -1,0 +1,74 @@
+.login-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 24px;
+  background: #f1f5f9;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: 400px;
+  padding: 32px;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+}
+.login-form__header {
+  text-align: center;
+}
+.login-form__header h1 {
+  margin: 0 0 8px;
+  color: #0f172a;
+  font-size: 26px;
+}
+.login-form__header p {
+  margin: 0;
+  color: #64748b;
+  font-size: 14px;
+}
+.login-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.login-form__field span {
+  color: #334155;
+  font-size: 14px;
+  font-weight: 500;
+}
+.login-form__field input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 7px;
+  outline: none;
+}
+.login-form__field input:focus {
+  border-color: #2563eb;
+}
+.login-form__error {
+  margin: 0;
+  color: #dc2626;
+  font-size: 13px;
+}
+.login-form__submit {
+  padding: 12px;
+  color: #fff;
+  font-weight: 600;
+  background: #2563eb;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+}
+.login-form__submit:hover:not(:disabled) {
+  background: #1d4ed8;
+}
+.login-form__submit:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}/*# sourceMappingURL=LoginPage.module.css.map */

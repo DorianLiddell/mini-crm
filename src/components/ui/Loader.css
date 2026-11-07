@@ -1,0 +1,26 @@
+.loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 100vh;
+}
+.loader__spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid #e5e7eb;
+  border-top-color: #2563eb;
+  border-radius: 50%;
+  animation: loader-spin 0.7s linear infinite;
+}
+.loader__text {
+  color: #64748b;
+  font-size: 14px;
+}
+
+@keyframes loader-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}/*# sourceMappingURL=Loader.css.map */
