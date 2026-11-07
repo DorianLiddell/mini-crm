@@ -1,75 +1,217 @@
-# React + TypeScript + Vite
+# Mini CRM — Объекты и задачи
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Мини-CRM для строительной компании. Приложение позволяет управлять строительными объектами, создавать задачи, назначать исполнителей и контролировать выполнение работ.
 
-Currently, two official plugins are available:
+## Возможности
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+### Постановщик (manager)
+- Просмотр всех строительных объектов.
+- Создание, редактирование и удаление объектов.
+- Создание и редактирование задач.
+- Назначение исполнителей на задачи.
+- Просмотр всех задач и их истории.
+- Приём выполненных задач.
+- Возврат задач на доработку с обязательным комментарием.
 
-## React Compiler
+### Исполнитель (performer)
+- Просмотр только доступных ему объектов.
+- Просмотр назначенных ему задач.
+- Перевод новых задач в работу.
+- Отправка выполненных задач на проверку.
+- Повторное выполнение возвращённых задач.
+- Просмотр истории изменений задач.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Статусы задач
 
-## Expanding the ESLint configuration
+| Статус | Описание |
+|---|---|
+| `new` | Новая |
+| `in_progress` | В работе |
+| `review` | На проверке |
+| `accepted` | Принята |
+| `rework` | На доработке |
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Переходы между статусами ограничены бизнес-правилами и проверяются на стороне базы данных.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Технологический стек
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- React
+- TypeScript
+- Vite
+- React Router
+- Supabase
+- PostgreSQL
+- Row Level Security (RLS)
+- SCSS
+- Lucide React
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Требования
 
+Перед запуском необходимо установить:
+
+- Node.js (рекомендуется актуальная LTS-версия).
+- npm.
+- Аккаунт Supabase.
+
+## Установка и запуск
+
+### 1. Клонирование репозитория
+
+```bash
+git clone https://github.com/DorianLiddell/mini-crm.git
+cd mini-crm
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+### 2. Установка зависимостей
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+npm install
 ```
+
+### 3. Создание проекта Supabase
+
+1. Перейдите на [supabase.com](https://supabase.com/).
+2. Создайте новый проект.
+3. Откройте настройки проекта и получите URL проекта и публичный ключ API (Publishable key либо legacy anon key).
+4. Сохраните эти значения — они понадобятся для настройки frontend-приложения.
+
+### 4. Настройка переменных окружения
+
+В корне проекта создайте файл `.env`:
+
+```env
+VITE_SUPABASE_URL=https://your-project.supabase.co
+VITE_SUPABASE_ANON_KEY=your-publishable-or-anon-key
+```
+
+Замените значения на данные своего Supabase-проекта.
+
+Переменные с префиксом `VITE_` доступны клиентскому приложению. Поэтому здесь разрешено использовать только публичный ключ Supabase.
+
+**Важно:** `service_role` и другие секретные ключи нельзя добавлять во frontend, `.env` для клиентского приложения или GitHub-репозиторий.
+
+### 5. Настройка базы данных
+
+В Supabase откройте **SQL Editor**.
+
+По очереди выполните SQL-миграции из директории:
+
+```text
+supabase/
+└── migrations/
+    ├── 001_initial_schema.sql
+    └── ...
+```
+
+Миграции необходимо применять в порядке возрастания номеров.
+
+Они создают необходимые таблицы, связи, ограничения, функции, триггеры и политики доступа.
+
+Основные таблицы:
+
+| Таблица | Назначение |
+|---|---|
+| `profiles` | Профили пользователей и их роли |
+| `objects` | Строительные объекты |
+| `tasks` | Задачи по объектам |
+| `task_status_history` | История изменения статусов |
+
+### 6. Создание пользователей
+
+Открытая регистрация пользователей должна быть отключена в настройках Supabase Auth.
+
+Для создания тестовых пользователей:
+
+1. Откройте **Authentication → Users**.
+2. Создайте пользователей вручную, указав email и пароль.
+3. Скопируйте UUID каждого созданного пользователя.
+4. Создайте соответствующие записи в таблице `profiles`.
+
+Пример SQL:
+
+```sql
+insert into public.profiles (id, email, role)
+values
+  ('UUID_MANAGER', 'manager@example.com', 'manager'),
+  ('UUID_PERFORMER_1', 'performer1@example.com', 'performer'),
+  ('UUID_PERFORMER_2', 'performer2@example.com', 'performer');
+```
+
+Замените UUID и email на значения созданных пользователей.
+
+Доступные роли:
+
+- `manager` — постановщик.
+- `performer` — исполнитель.
+
+Не используйте приведённые демонстрационные email и пароли в качестве реальных учётных данных.
+
+### 7. Запуск приложения
+
+После настройки Supabase и переменных окружения выполните:
+
+```bash
+npm run dev
+```
+
+Vite запустит приложение локально.
+
+По умолчанию оно будет доступно по адресу:
+
+```text
+http://localhost:5173
+```
+
+## Проверка проекта
+
+### Сборка
+
+```bash
+npm run build
+```
+
+### Проверка ESLint
+
+```bash
+npm run lint
+```
+
+### Локальный просмотр production-сборки
+
+```bash
+npm run preview
+```
+
+## Безопасность
+
+Защита данных реализована на уровне PostgreSQL и Supabase.
+
+- Для таблиц используются политики Row Level Security (RLS), ограничивающие доступ к данным в зависимости от роли пользователя.
+- Исполнитель получает доступ только к своим задачам и связанным с ними объектам.
+- Изменение статусов выполняется через серверную функцию базы данных, которая проверяет допустимость перехода и права пользователя.
+- История статусов защищена от самостоятельного изменения через клиентский API.
+- Регистрация новых пользователей отключена.
+- Секретный ключ `service_role` не используется во frontend-приложении.
+
+Скрытие кнопок в интерфейсе дополняет защиту, но не заменяет проверки на стороне базы данных.
+
+## Основной сценарий работы
+
+1. Постановщик создаёт строительный объект.
+2. Добавляет задачу и назначает исполнителя.
+3. Исполнитель видит задачу в разделе «Мои задачи».
+4. Исполнитель берёт задачу в работу.
+5. После выполнения отправляет её на проверку.
+6. Постановщик принимает задачу или возвращает её на доработку с комментарием.
+7. История всех переходов сохраняется в карточке задачи.
+
+## Ограничения текущей версии
+
+Проект реализует минимальный функционал, предусмотренный тестовым заданием.
+
+В текущий объём не входят:
+- Уведомления о назначении и изменении задач.
+- Загрузка файлов и вложений.
+- Групповое назначение одной задачи нескольким исполнителям.
+- Расширенная аналитика и отчёты.
+- Интеграции со сторонними системами.
