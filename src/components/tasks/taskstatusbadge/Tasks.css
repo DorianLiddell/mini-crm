@@ -1,0 +1,110 @@
+.task-status {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 9px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.task-status--new {
+  background: #eff6ff;
+  color: #1d4ed8;
+}
+.task-status--in_progress {
+  background: #fef3c7;
+  color: #92400e;
+}
+.task-status--review {
+  background: #f3e8ff;
+  color: #7e22ce;
+}
+.task-status--accepted {
+  background: #dcfce7;
+  color: #166534;
+}
+.task-status--rework {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.task-card {
+  padding: 20px;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #fff;
+}
+.task-card__main {
+  min-width: 0;
+}
+.task-card__title {
+  display: inline-block;
+  margin-bottom: 8px;
+  color: #1e293b;
+  font-size: 17px;
+  font-weight: 600;
+  text-decoration: none;
+}
+.task-card__title:hover {
+  color: #2563eb;
+}
+.task-card__description {
+  margin: 0 0 12px;
+  color: #475569;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+.task-card__footer {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 14px;
+}
+.task-card__meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #64748b;
+  font-size: 13px;
+}
+
+.task-history {
+  display: grid;
+  gap: 16px;
+}
+.task-history__item {
+  padding-left: 16px;
+  border-left: 2px solid #cbd5e1;
+}
+.task-history__item p {
+  margin: 7px 0 0;
+  color: #475569;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.task-history__header {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px;
+}
+.task-history__header strong {
+  color: #1e293b;
+  font-size: 14px;
+}
+.task-history__header time {
+  color: #94a3b8;
+  font-size: 12px;
+}
+.task-history__comment {
+  padding: 10px 12px;
+  border-radius: 7px;
+  background: #f8fafc;
+  color: #475569;
+}
+.task-history__empty {
+  color: #64748b;
+  font-size: 14px;
+}/*# sourceMappingURL=Tasks.css.map */

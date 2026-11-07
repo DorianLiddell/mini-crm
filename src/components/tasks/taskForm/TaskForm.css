@@ -1,0 +1,71 @@
+.task-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.task-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.task-form__field label {
+  font-size: 14px;
+  font-weight: 500;
+}
+.task-form__field input,
+.task-form__field textarea,
+.task-form__field select {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 7px;
+  background: #fff;
+  color: #1e293b;
+  font: inherit;
+}
+.task-form__field input:focus,
+.task-form__field textarea:focus,
+.task-form__field select:focus {
+  outline: 2px solid #bfdbfe;
+  border-color: #2563eb;
+}
+.task-form__field input:disabled,
+.task-form__field textarea:disabled,
+.task-form__field select:disabled {
+  background: #f8fafc;
+}
+.task-form__field textarea {
+  resize: vertical;
+}
+.task-form__error {
+  margin: 0;
+  color: #dc2626;
+  font-size: 14px;
+}
+.task-form__hint {
+  margin: 0;
+  color: #64748b;
+  font-size: 14px;
+}
+.task-form__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+.task-form__actions button {
+  padding: 10px 16px;
+  border: 1px solid #cbd5e1;
+  border-radius: 7px;
+  background: #fff;
+  cursor: pointer;
+}
+.task-form__actions button:last-child {
+  border-color: #2563eb;
+  background: #2563eb;
+  color: #fff;
+}
+.task-form__actions button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}/*# sourceMappingURL=TaskForm.css.map */

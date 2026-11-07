@@ -3,50 +3,90 @@
   background: #f8fafc;
 }
 .app-layout__content {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 32px 24px;
+  padding: 32px;
 }
 
 .app-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 16px 32px;
-  background: #fff;
+  gap: 32px;
+  min-height: 68px;
+  padding: 0 32px;
   border-bottom: 1px solid #e2e8f0;
+  background: #fff;
 }
 .app-header__brand {
-  color: #0f172a;
+  color: #1e293b;
   font-size: 20px;
   font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
 }
-.app-header__user {
+.app-header__nav {
   display: flex;
   align-items: center;
   gap: 20px;
 }
-.app-header__user div {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-.app-header__user span {
-  color: #334155;
-  font-size: 14px;
-}
-.app-header__user small {
+.app-header__link {
   color: #64748b;
-  font-size: 12px;
+  font-size: 14px;
+  text-decoration: none;
+}
+.app-header__link:hover, .app-header__link.active {
+  color: #2563eb;
+}
+.app-header__user {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-left: auto;
 }
 .app-header__user button {
-  padding: 8px 14px;
-  color: #475569;
-  background: #fff;
+  padding: 9px 13px;
   border: 1px solid #cbd5e1;
-  border-radius: 6px;
+  border-radius: 7px;
+  background: #fff;
+  color: #475569;
   cursor: pointer;
 }
 .app-header__user button:hover {
   background: #f1f5f9;
+}
+.app-header__user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  text-align: right;
+}
+.app-header__user-info span {
+  color: #1e293b;
+  font-size: 13px;
+}
+.app-header__user-info small {
+  color: #64748b;
+  font-size: 12px;
+}
+
+@media (max-width: 700px) {
+  .app-layout__content {
+    padding: 20px 16px;
+  }
+  .app-header {
+    flex-wrap: wrap;
+    gap: 14px;
+    padding: 14px 16px;
+  }
+  .app-header__nav {
+    order: 3;
+    width: 100%;
+  }
+  .app-header__user {
+    gap: 8px;
+  }
+  .app-header__user-info span {
+    max-width: 140px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 }/*# sourceMappingURL=AppLayout.css.map */

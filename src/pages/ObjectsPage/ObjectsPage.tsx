@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Plus } from 'lucide-react';
 
+import { useAuth } from '../../hooks/useAuth';
 import { useObjects } from '../../hooks/useObjects';
 
 import { ObjectCard } from '../../components/objects/ObjectCard';
@@ -15,6 +16,8 @@ import type {
 import './ObjectsPage.scss';
 
 export function ObjectsPage() {
+  const { profile } = useAuth();
+
   const {
     objects,
     loading,
@@ -29,6 +32,8 @@ export function ObjectsPage() {
   const [formOpen, setFormOpen] = useState(false);
   const [editingObject, setEditingObject] =
     useState<ConstructionObject | null>(null);
+
+  const canManage = profile?.role === 'manager';
 
   const handleCreate = () => {
     setEditingObject(null);
@@ -46,6 +51,8 @@ export function ObjectsPage() {
   };
 
   const handleSubmit = async (dto: CreateObjectDto) => {
+    if (!canManage) return;
+
     if (editingObject) {
       await editObject(editingObject.id, dto);
     } else {
@@ -59,7 +66,7 @@ export function ObjectsPage() {
     try {
       await removeObject(id);
     } catch {
-      // Ошибка уже обработана в useObjects.
+      // Ошибка уже сохранена в useObjects.
     }
   };
 
@@ -72,17 +79,23 @@ export function ObjectsPage() {
       <header className="objects-page__header">
         <div>
           <h1>Объекты</h1>
-          <p>Управление строительными объектами</p>
+          <p>
+            {canManage
+              ? 'Управление строительными объектами'
+              : 'Объекты с назначенными вам задачами'}
+          </p>
         </div>
 
-        <button
-          className="objects-page__add-button"
-          type="button"
-          onClick={handleCreate}
-        >
-          <Plus size={18} />
-          Добавить объект
-        </button>
+        {canManage && (
+          <button
+            className="objects-page__add-button"
+            type="button"
+            onClick={handleCreate}
+          >
+            <Plus size={18} />
+            Добавить объект
+          </button>
+        )}
       </header>
 
       {error && (
@@ -91,10 +104,12 @@ export function ObjectsPage() {
         </p>
       )}
 
-      {formOpen && (
+      {canManage && formOpen && (
         <div className="objects-page__form">
           <h2>
-            {editingObject ? 'Редактирование объекта' : 'Новый объект'}
+            {editingObject
+              ? 'Редактирование объекта'
+              : 'Новый объект'}
           </h2>
 
           <ObjectForm
@@ -116,8 +131,17 @@ export function ObjectsPage() {
 
       {objects.length === 0 ? (
         <div className="objects-page__empty">
-          <h2>Объектов пока нет</h2>
-          <p>Добавьте первый объект, чтобы начать работу.</p>
+          <h2>
+            {canManage
+              ? 'Объектов пока нет'
+              : 'Нет доступных объектов'}
+          </h2>
+
+          <p>
+            {canManage
+              ? 'Добавьте первый объект, чтобы начать работу.'
+              : 'Здесь появятся объекты, в которых у вас есть задачи.'}
+          </p>
         </div>
       ) : (
         <div className="objects-page__list">
@@ -125,6 +149,7 @@ export function ObjectsPage() {
             <ObjectCard
               key={object.id}
               object={object}
+              canManage={canManage}
               deleting={deletingId === object.id}
               onEdit={handleEdit}
               onDelete={handleDelete}

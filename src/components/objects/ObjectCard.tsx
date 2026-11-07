@@ -5,6 +5,7 @@ import type { ConstructionObject } from '../../types/database.types';
 
 interface ObjectCardProps {
   object: ConstructionObject;
+  canManage: boolean;
   deleting: boolean;
   onEdit: (object: ConstructionObject) => void;
   onDelete: (id: string) => void;
@@ -12,6 +13,7 @@ interface ObjectCardProps {
 
 export function ObjectCard({
   object,
+  canManage,
   deleting,
   onEdit,
   onDelete,
@@ -42,24 +44,26 @@ export function ObjectCard({
         </p>
       </div>
 
-      <div className="object-card__actions">
-        <button
-          type="button"
-          aria-label="Редактировать объект"
-          onClick={() => onEdit(object)}
-        >
-          <Pencil size={17} />
-        </button>
+      {canManage && (
+        <div className="object-card__actions">
+          <button
+            type="button"
+            aria-label="Редактировать объект"
+            onClick={() => onEdit(object)}
+          >
+            <Pencil size={17} />
+          </button>
 
-        <button
-          type="button"
-          aria-label="Удалить объект"
-          onClick={handleDelete}
-          disabled={deleting}
-        >
-          <Trash2 size={17} />
-        </button>
-      </div>
+          <button
+            type="button"
+            aria-label="Удалить объект"
+            onClick={handleDelete}
+            disabled={deleting}
+          >
+            <Trash2 size={17} />
+          </button>
+        </div>
+      )}
     </article>
   );
 }

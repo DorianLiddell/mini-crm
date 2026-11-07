@@ -1,0 +1,79 @@
+.task-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+
+    label {
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    input,
+    textarea,
+    select {
+      box-sizing: border-box;
+      width: 100%;
+      padding: 11px 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      background: #fff;
+      color: #1e293b;
+      font: inherit;
+
+      &:focus {
+        outline: 2px solid #bfdbfe;
+        border-color: #2563eb;
+      }
+
+      &:disabled {
+        background: #f8fafc;
+      }
+    }
+
+    textarea {
+      resize: vertical;
+    }
+  }
+
+  &__error {
+    margin: 0;
+    color: #dc2626;
+    font-size: 14px;
+  }
+
+  &__hint {
+    margin: 0;
+    color: #64748b;
+    font-size: 14px;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+
+    button {
+      padding: 10px 16px;
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      background: #fff;
+      cursor: pointer;
+
+      &:last-child {
+        border-color: #2563eb;
+        background: #2563eb;
+        color: #fff;
+      }
+
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+    }
+  }
+}
